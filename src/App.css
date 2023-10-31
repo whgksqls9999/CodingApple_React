@@ -37,9 +37,19 @@
   }
 }
 
+div {
+  box-sizing: border-box;
+}
+
 .black-nav{
   display: flex;
   background-color: black;
   color: white;
   padding-left: 1rem;
+}
+
+.list{
+  text-align: left;
+  padding-left: 1rem;
+  border-bottom: 1px solid gray;
 }
