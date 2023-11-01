@@ -7,6 +7,7 @@ function App() {
   let post = '강남 우동 맛집';
   let [title, b] = useState(['강남 우동 맛집', '게시글 제목2', '게시글 제목 3']);
   let [like, likeState] = useState(0)
+  let [modal, setModal] = useState(false)
 
   const sort = function () {
     let copy = [...title];
@@ -29,19 +30,22 @@ function App() {
         <p> 11월 1일 발행 </p>
       </div>
       <div className="list">
-        <h4>{title[2]}</h4>
+        <h4 onClick={() => { setModal(!modal) }}>{title[2]}</h4>
         <p> 11월 1일 발행 </p>
       </div>
-      <Comp></Comp>
+      {
+        modal ? <Modal/> : null
+      }
+
     </div>
   );
 }
 
-const Comp = () => {
+const Modal = () => {
   return (
     <>
       <div>
-        <h3>컴포넌트 테스트!</h3>
+        <h3>동적 UI</h3>
       </div>
       <div>
         Made By Bin
