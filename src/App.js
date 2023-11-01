@@ -6,14 +6,22 @@ function App() {
 
   let post = '강남 우동 맛집';
   let [title, b] = useState(['강남 우동 맛집', '게시글 제목2', '게시글 제목 3']);
+  let [like, likeState] = useState(0)
+
+  const sort = function(){
+    let copy = [...title];
+    copy.sort();
+    b(copy);
+  }
 
   return (
    <div className="App">
       <div className="black-nav">
         <h4>블로그임</h4>
       </div>
+      <button onClick={sort}>asdfasf</button>
       <div className="list">
-        <h4>{ title[0] }</h4>
+        <h4>{ title[0] }<span onClick={ () => { likeState(like+1)}}> LIKE </span>{ like }</h4>
         <p> 11월 1일 발행 </p>
       </div>
       <div className="list">
