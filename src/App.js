@@ -19,9 +19,17 @@ function App() {
   let[write, setWrite] = useState('')
 
   const addArticle = ((article)=>{
+    if (article == '') return;
+    
+    // 게시글 목록에 게시글 추가
     let tmp = [...title]
     tmp.unshift(article)
     setTitle(tmp)
+
+    // 좋아요 목록도 추가
+    tmp = [...like]
+    tmp.unshift(0)
+    setLike(tmp)
   })
 
   const deleteArticle = ((idx)=>{
@@ -41,7 +49,7 @@ function App() {
         title.map((element, i) => {
           return (
             <div className="article">
-              <h3 onClick={()=>{setModal(!modal); setIdx(i)}}>{title[i]}<span className="like" onClick={()=>{updateLike(i)}}>Like👍🏻</span>{like[i]}</h3>
+              <h3 onClick={()=>{setModal(!modal); setIdx(i)}}>{title[i]}<span className="like" onClick={(e)=>{e.stopPropagation(); updateLike(i)}}>Like👍🏻</span>{like[i]}</h3>
               <div> 11월 3일 발행</div>
               <button onClick={()=>{deleteArticle(i)}}>게시글 삭제</button>
             </div>
