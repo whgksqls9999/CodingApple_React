@@ -1,68 +1,86 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
 function App() {
 
-  let post = '강남 우동 맛집';
-  let [title, setTitle] = useState(['강남 우동 맛집', '게시글 제목2', '게시글 제목 3']);
-  let [like, setLike] = useState([0, 0, 0])
-  let [modal, setModal] = useState(false)
-  let [selectTitle, setSelecTitle] = useState(0);
+  let [title, setTitle] = useState(['첫번째 게시글', '두번째 게시글', '세번째 게시글'])
 
-  const sort = function () {
-    let copy = [...title];
-    copy.sort();
-    setTitle(copy);
-  }
+  let [idx, setIdx] = useState(0)
+  
+  let [like, setLike] = useState([0,0,0])
+  const updateLike = ((i)=>{
+      let tmp = [...like]
+      tmp[i]++
+      setLike(tmp)
+  })
 
-  const doLike = (i) => {
-    let tmp = [...like]
-    tmp[i]++
-    setLike(tmp);
-  }
+  let[modal, setModal] = useState(false)
+
+  let[write, setWrite] = useState('')
+
+  const addArticle = ((article)=>{
+    let tmp = [...title]
+    tmp.unshift(article)
+    setTitle(tmp)
+  })
+
+  const deleteArticle = ((idx)=>{
+    let tmp = [...title]
+    tmp.splice(idx,1)
+    setTitle(tmp)
+  })
 
   return (
-    <div className="App">
-      <div className="black-nav">
-        <h4>블로그임</h4>
+    <>
+      <div className="App">
+        <div className="App-nav">
+          blog
+        </div>
       </div>
-      <button onClick={sort}>sort</button>
       {
-        title.map(function (a, i) {
+        title.map((element, i) => {
           return (
-            <div className="list">
-              <h4>{a}<span onClick={() => { doLike(i) }}> LIKE☹ </span>{like[i]}</h4>
-              <p onClick={() => { setModal(!modal); setSelecTitle(i) }}> 11월 1일 발행 </p>
+            <div className="article">
+              <h3 onClick={()=>{setModal(!modal); setIdx(i)}}>{title[i]}<span className="like" onClick={()=>{updateLike(i)}}>Like👍🏻</span>{like[i]}</h3>
+              <div> 11월 3일 발행</div>
+              <button onClick={()=>{deleteArticle(i)}}>게시글 삭제</button>
             </div>
           )
         })
       }
-
+      <div>
+        <input type="text" onChange={(e) => {setWrite(e.target.value)}}></input>
+        <button onClick={()=>{addArticle(write)}}>등록하기</button>
+        <div>{write}</div>
+      </div>
       {
-        modal ? <Modal titles={title} setTitle={setTitle} selectTitle={selectTitle} /> : null
+        modal ? <Modal title={title} setTitle={setTitle} idx={idx}/> : null
       }
-    </div>
-  );
+    </>
+  )
 }
 
-const Modal = (props) => {
-  return (
+const Modal = function(props){
+  const modifyTitle = (()=>{
+    let tmp = [...props.title]
+    tmp[0] = '수정된 게시글'
+    props.setTitle(tmp)
+  })
+
+  return(
     <>
-      <div>
-        <h3>{props.titles[props.selectTitle]}</h3>
-        <p>날짜</p>
-        <p>상세내용</p>
-        <button onClick={() => { updateName(props) }}>수정</button>
+      <div class="modal">
+        <div>
+          <h3>{props.title[props.idx]}</h3>
+        </div>
+        <div>
+          <button onClick={()=>{modifyTitle()}}>글 수정하기</button>
+        </div>
       </div>
     </>
   )
 }
 
-const updateName = ((props) => {
-  let tmp = [...props.titles]
-  tmp[0] = '수정'
-  props.setTitle(tmp)
-})
+
 
 export default App;

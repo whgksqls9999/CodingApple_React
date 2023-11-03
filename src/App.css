@@ -41,15 +41,34 @@ div {
   box-sizing: border-box;
 }
 
-.black-nav{
-  display: flex;
-  background-color: black;
+.App-nav{
   color: white;
-  padding-left: 1rem;
+  background-color: black;
+  padding: 1.2rem;
+  text-align: left;
+  font-weight: bold;
 }
 
-.list{
-  text-align: left;
-  padding-left: 1rem;
-  border-bottom: 1px solid gray;
+.like{
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+}
+
+.article{
+  border-bottom: 1px solid grey;
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.modal{
+  background-color: grey;
+  padding: 2rem;
+  width: 20rem;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modal h3{
+  margin-top: 0;
 }
